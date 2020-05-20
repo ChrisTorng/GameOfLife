@@ -9,6 +9,11 @@ namespace GameOfLife.Library
             this.Width = width;
             this.Height = height;
             this.Rows = new BitArray[height];
+
+            for (int index = 0; index < this.Rows.Length; index++)
+            {
+                this.Rows[index] = new BitArray(width);
+            }
         }
 
         public int Width { get; }
