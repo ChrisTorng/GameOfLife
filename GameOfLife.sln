@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife", "GameOfLife\GameOfLife.csproj", "{4C7054E1-B4B8-451D-AE41-579169C79A59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{4A3BC8F9-9340-469F-88E0-1F664C361B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A3BC8F9-9340-469F-88E0-1F664C361B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A3BC8F9-9340-469F-88E0-1F664C361B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C7054E1-B4B8-451D-AE41-579169C79A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C7054E1-B4B8-451D-AE41-579169C79A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C7054E1-B4B8-451D-AE41-579169C79A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C7054E1-B4B8-451D-AE41-579169C79A59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
