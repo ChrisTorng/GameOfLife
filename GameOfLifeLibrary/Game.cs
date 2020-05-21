@@ -41,25 +41,50 @@ namespace GameOfLife.Library
         internal void ApplyCellRules(int widthIndex, int heightIndex, Board nextBoard)
         {
             int aliveNeighbors = this.GetAliveNeighbors(widthIndex, heightIndex);
+            if (nextBoard.Columns[widthIndex][heightIndex])
+            {
+                if (aliveNeighbors >= 2 || aliveNeighbors <= 3)
+                {
+                    nextBoard.Columns[widthIndex][heightIndex] = true;
+                }
+            }
+            else
+            {
+                if (aliveNeighbors == 3)
+                {
+                    nextBoard.Columns[widthIndex][heightIndex] = true;
+                }
+            }
         }
 
         internal int GetAliveNeighbors(int widthIndex, int heightIndex)
         {
             int aliveNeighbors = 0;
 
-            aliveNeighbors += this.LeftTopState(widthIndex, heightIndex);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, -1);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 0, -1);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, -1);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, 0);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, 0);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, 1);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 0, 1);
+            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, 1);
 
             return aliveNeighbors;
         }
 
-        internal int LeftTopState(int widthIndex, int heightIndex)
+        internal int CurrentState(int widthIndex, int heightIndex,
+            int leftOffset, int topOffset)
         {
-            if (widthIndex == 0 || heightIndex == 0)
+            int left = widthIndex + leftOffset;
+            int top = heightIndex + topOffset;
+            if (left < 0 || left >= this.Board.Width ||
+                top < 0 || top >= this.Board.Height)
             {
                 return 0;
             }
 
-            return this.Board.Columns[widthIndex - 1][heightIndex - 1] ? 1 : 0;
+            return this.Board.Columns[left][top] ? 1 : 0;
         }
     }
 }
