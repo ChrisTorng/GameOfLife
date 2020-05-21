@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace GameOfLife.Library
 {
@@ -6,6 +7,16 @@ namespace GameOfLife.Library
     {
         public Board(int width, int height)
         {
+            if (width <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(width));
+            }
+
+            if (height <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(height));
+            }
+
             this.Width = width;
             this.Height = height;
             this.Columns = new BitArray[width];

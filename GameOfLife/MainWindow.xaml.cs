@@ -11,7 +11,9 @@ namespace GameOfLife
     public partial class MainWindow : Window
     {
         private readonly Game game;
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
         private Rectangle[,] cells;
+#pragma warning restore CA1814 // Prefer jagged arrays over multidimensional
 
         public MainWindow()
         {

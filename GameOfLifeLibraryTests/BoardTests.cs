@@ -1,10 +1,30 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLife.Library.Tests
 {
     [TestClass]
     public class BoardTests
     {
+        internal static void BoardsEqual(Board expected, Board actual)
+        {
+            Assert.AreEqual(expected.Width, actual.Width);
+            Assert.AreEqual(expected.Height, actual.Height);
+            Assert.AreEqual(expected.Columns.Length, actual.Columns.Length);
+            Assert.AreEqual(expected.Columns[0].Length, actual.Columns[0].Length);
+            Assert.AreEqual(expected.Columns[1].Length, actual.Columns[1].Length);
+        }
+
+        [TestMethod]
+        public void Constructor_Invalid_Test()
+        {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                new Board(0, 1));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                new Board(1, 0));
+        }
+
         [TestMethod]
         public void Constructor_Test()
         {
