@@ -8,11 +8,11 @@ namespace GameOfLife.Library
         {
             this.Width = width;
             this.Height = height;
-            this.Rows = new BitArray[height];
+            this.Columns = new BitArray[width];
 
-            for (int index = 0; index < this.Rows.Length; index++)
+            for (int index = 0; index < this.Columns.Length; index++)
             {
-                this.Rows[index] = new BitArray(width);
+                this.Columns[index] = new BitArray(height);
             }
         }
 
@@ -21,7 +21,12 @@ namespace GameOfLife.Library
         public int Height { get; }
 
 #pragma warning disable CA1819 // Properties should not return arrays
-        public BitArray[] Rows { get; }
+        public BitArray[] Columns { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
+
+        public bool Flip(int x, int y)
+        {
+            return this.Columns[x][y] = !this.Columns[x][y];
+        }
     }
 }

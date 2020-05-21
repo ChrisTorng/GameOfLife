@@ -12,10 +12,20 @@ namespace GameOfLife.Library.Tests
 
             Assert.AreEqual(2, board.Width);
             Assert.AreEqual(3, board.Height);
-            Assert.AreEqual(3, board.Rows.Length);
-            Assert.AreEqual(2, board.Rows[0].Length);
-            Assert.AreEqual(2, board.Rows[1].Length);
-            Assert.AreEqual(2, board.Rows[2].Length);
+            Assert.AreEqual(2, board.Columns.Length);
+            Assert.AreEqual(3, board.Columns[0].Length);
+            Assert.AreEqual(3, board.Columns[1].Length);
+        }
+
+        [TestMethod]
+        public void Flip_Test()
+        {
+            var board = new Board(2, 3);
+
+            Assert.AreEqual(true, board.Flip(0, 0));
+            Assert.AreEqual(false, board.Flip(0, 0));
+            Assert.AreEqual(true, board.Flip(1, 2));
+            Assert.AreEqual(false, board.Flip(1, 2));
         }
     }
 }

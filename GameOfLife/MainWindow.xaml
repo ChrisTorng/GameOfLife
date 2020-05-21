@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
         Title="Game of Life" Height="450" Width="800">
-    <Grid>
-
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Label Content="Width:" />
+            <TextBox x:Name="WidthTextBox" Width="100" Text="30" />
+            <Label Content="Height:" Margin="10,0,0,0" />
+            <TextBox x:Name="HeightTextBox" Width="100" Text="20" />
+            <Button x:Name="OkButton" Content="OK" Click="OkButton_Click" Margin="10,0,0,0"></Button>
+        </StackPanel>
+        <Canvas x:Name="BoardCanvas" Grid.Row="1" Background="Bisque">
+        </Canvas>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Content="Play" />
+            <Button Content="Stop" />
+        </StackPanel>
     </Grid>
 </Window>
