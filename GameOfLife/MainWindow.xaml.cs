@@ -164,5 +164,38 @@ namespace GameOfLife
         {
             cell.Fill = alive ? Brushes.Bisque : Brushes.YellowGreen;
         }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            var board = this.game.Reset();
+            this.UpdateBoard(board);
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            var board = this.game.Step();
+            this.UpdateBoard(board);
+        }
+
+        private void UpdateBoard(Board board)
+        {
+            for (int widthIndex = 0; widthIndex < board.Width; widthIndex++)
+            {
+                for (int heightIndex = 0; heightIndex < board.Height; heightIndex++)
+                {
+                    var state = board.Columns[widthIndex][heightIndex];
+                    var cell = this.cells[widthIndex, heightIndex];
+                    this.DrawCellState(cell, state);
+                }
+            }
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

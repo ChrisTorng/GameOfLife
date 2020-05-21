@@ -22,8 +22,10 @@
         <Canvas x:Name="BoardCanvas" Grid.Row="1" Background="Bisque">
         </Canvas>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Content="Play" />
-            <Button Content="Stop" />
+            <Button x:Name="ResetButton" Content="Reset" Click="ResetButton_Click" />
+            <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" />
+            <Button x:Name="PlayButton" Content="Play" Click="PlayButton_Click" />
+            <Button x:Name="StopButton" Content="Stop" Click="StopButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

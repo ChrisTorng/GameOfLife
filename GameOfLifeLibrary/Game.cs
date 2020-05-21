@@ -20,11 +20,21 @@ namespace GameOfLife.Library
             return this.Board;
         }
 
+        public Board Reset()
+        {
+            return this.CreateBoard(this.Board.Width, this.Board.Height);
+        }
+
         public Board NextBoard()
         {
             Board nextBoard = new Board(this.Board.Width, this.Board.Height);
             this.ApplyBoardRules(nextBoard);
             return nextBoard;
+        }
+
+        public Board Step()
+        {
+            return this.Board = this.NextBoard();
         }
 
         private void ApplyBoardRules(Board nextBoard)
