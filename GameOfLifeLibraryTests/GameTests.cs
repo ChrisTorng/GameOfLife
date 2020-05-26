@@ -89,7 +89,6 @@ namespace GameOfLife.Library.Tests
             game.Board.Columns[0][1] = true;
             game.Board.Columns[0][2] = true;
             game.Board.Columns[1][0] = true;
-            game.Board.Columns[1][1] = true;
             game.Board.Columns[1][2] = true;
             game.Board.Columns[2][0] = true;
             game.Board.Columns[2][1] = true;
