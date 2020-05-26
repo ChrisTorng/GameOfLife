@@ -11,8 +11,11 @@ namespace GameOfLife.Library.Tests
             Assert.AreEqual(expected.Width, actual.Width);
             Assert.AreEqual(expected.Height, actual.Height);
             Assert.AreEqual(expected.Columns.Length, actual.Columns.Length);
-            Assert.AreEqual(expected.Columns[0].Length, actual.Columns[0].Length);
-            Assert.AreEqual(expected.Columns[1].Length, actual.Columns[1].Length);
+
+            for (int widthIndex = 0; widthIndex < expected.Width; widthIndex++)
+            {
+                CollectionAssert.AreEqual(expected.Columns[widthIndex], actual.Columns[widthIndex]);
+            }
         }
 
         [TestMethod]

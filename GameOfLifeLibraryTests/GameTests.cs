@@ -113,11 +113,16 @@ namespace GameOfLife.Library.Tests
             game.CreateBoard(1, 1);
             var nextBoard = game.NextBoard();
 
-            Assert.AreEqual(false, nextBoard.Columns[0][0]);
+            var expectedBoard = new Board(1, 1);
+            expectedBoard.Columns[0][0] = false;
+
+            BoardTests.BoardsEqual(expectedBoard, nextBoard);
 
             game.Board.Columns[0][0] = true;
+            nextBoard = game.NextBoard();
 
-            Assert.AreEqual(false, nextBoard.Columns[0][0]);
+            expectedBoard.Columns[0][0] = false;
+            BoardTests.BoardsEqual(expectedBoard, nextBoard);
         }
 
         [TestMethod]
