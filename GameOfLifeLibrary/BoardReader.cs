@@ -7,9 +7,9 @@ namespace GameOfLife.Library
     {
         public Board Board { get; protected set; }
 
-        public static BoardReader GetBoardReader(string path)
+        internal static BoardReader GetBoardReader(string path)
         {
-            if (Path.GetExtension(path) == "cells")
+            if (Path.GetExtension(path) == ".cells")
             {
                 return new PlaintextBoardReader();
             }
@@ -22,7 +22,16 @@ namespace GameOfLife.Library
         {
             BoardReader reader = GetBoardReader(path);
             string content = File.ReadAllText(path);
+            return GetBoardByContent(reader, content);
+        }
 
+        internal static Board GetPlaintextBoard(string content)
+        {
+            return GetBoardByContent(new PlaintextBoardReader(), content);
+        }
+
+        private static Board GetBoardByContent(BoardReader reader, string content)
+        {
             reader.SetContent(content);
             reader.SetBoardSize();
             reader.Parse();
