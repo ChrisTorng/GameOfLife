@@ -6,7 +6,7 @@ namespace GameOfLife.Library
 {
     public class Game
     {
-        public int Steps { get; }
+        public int Steps { get; private set; }
 
         public Board Board { get; private set; }
 
@@ -34,6 +34,7 @@ namespace GameOfLife.Library
 
         public Board Step()
         {
+            this.Steps++;
             return this.Board = this.NextBoard();
         }
 
@@ -51,9 +52,9 @@ namespace GameOfLife.Library
         internal void ApplyCellRules(int widthIndex, int heightIndex, Board nextBoard)
         {
             int aliveNeighbors = this.GetAliveNeighbors(widthIndex, heightIndex);
-            if (nextBoard.Columns[widthIndex][heightIndex])
+            if (this.Board.Columns[widthIndex][heightIndex])
             {
-                if (aliveNeighbors >= 2 || aliveNeighbors <= 3)
+                if (aliveNeighbors >= 2 && aliveNeighbors <= 3)
                 {
                     nextBoard.Columns[widthIndex][heightIndex] = true;
                 }
