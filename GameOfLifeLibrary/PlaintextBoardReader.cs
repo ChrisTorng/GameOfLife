@@ -13,9 +13,7 @@ namespace GameOfLife.Library
         {
         }
 
-        public Board Board { get; private set; }
-
-        internal void SetContent(string content)
+        internal override void SetContent(string content)
         {
             if (content is null)
             {
@@ -30,10 +28,18 @@ namespace GameOfLife.Library
             }
 
             this.lines = content.Split('\n')
-                .Select(l => l.Trim()).ToArray();
+                .Where(line => !IsCommentLine(line))
+                .Select(line => line.Trim()).ToArray();
+
+            if (this.lines.Length == 0)
+            {
+                throw new ArgumentException(
+                    $"Parameter {nameof(content)} should have valid content except comment line.",
+                    nameof(content));
+            }
         }
 
-        internal void SetBoardSize()
+        internal override void SetBoardSize()
         {
             (int width, int height) = this.GetBoardSize();
             this.Board = new Board(width, height);
@@ -62,7 +68,7 @@ namespace GameOfLife.Library
             return line.Length;
         }
 
-        internal void Parse()
+        internal override void Parse()
         {
             int heightIndex = 0;
             foreach (string line in this.lines)

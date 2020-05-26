@@ -16,15 +16,18 @@ namespace GameOfLife.Library.Tests
             Assert.ThrowsException<ArgumentException>(() => reader.SetContent(string.Empty));
 
             Assert.ThrowsException<ArgumentException>(() => reader.SetContent(" "));
+
+            Assert.ThrowsException<ArgumentException>(() => reader.SetContent("!"));
+
+            Assert.ThrowsException<ArgumentException>(() => reader.SetContent(
+@"!
+!"));
         }
 
         [TestMethod]
         public void SetBoardSize_Invalid_Test()
         {
             var reader = new PlaintextBoardReader();
-
-            reader.SetContent("!comment");
-            Assert.ThrowsException<InvalidOperationException>(() => reader.SetBoardSize());
 
             reader.SetContent(
 @"!
