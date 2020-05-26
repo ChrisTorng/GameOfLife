@@ -14,7 +14,9 @@ namespace GameOfLife.Library.Tests
 
             for (int widthIndex = 0; widthIndex < expected.Width; widthIndex++)
             {
-                CollectionAssert.AreEqual(expected.Columns[widthIndex], actual.Columns[widthIndex]);
+                CollectionAssert.AreEqual(expected.Columns[widthIndex],
+                    actual.Columns[widthIndex],
+                    $"Not equal on Columns[{widthIndex}].");
             }
         }
 
