@@ -26,6 +26,13 @@
             <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" />
             <Button x:Name="PlayButton" Content="Play" Click="PlayButton_Click" />
             <Button x:Name="StopButton" Content="Stop" Click="StopButton_Click" />
+            <Label Content="Speed:"/>
+            <TextBlock x:Name="SpeedTextBlock" Width="50"
+                       Text="{Binding Value, ElementName=SpeedSlider}"/>
+            <Slider x:Name="SpeedSlider" Minimum="0" Maximum="1000" Width="100"
+                    Value="1000"
+                    TickFrequency="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight"
+                    ValueChanged="SpeedSlider_ValueChanged" />
         </StackPanel>
     </Grid>
 </Window>

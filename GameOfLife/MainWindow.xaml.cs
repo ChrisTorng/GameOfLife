@@ -4,12 +4,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using GameOfLife.Library;
 
 namespace GameOfLife
 {
     public partial class MainWindow : Window
     {
+        private readonly DispatcherTimer timer = new DispatcherTimer();
         private readonly Game game;
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
         private Rectangle[,] cells;
@@ -19,6 +21,8 @@ namespace GameOfLife
         {
             this.InitializeComponent();
             this.game = new Game();
+
+            this.timer.Tick += this.Timer_Tick;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -173,6 +177,11 @@ namespace GameOfLife
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
+            this.NextStep();
+        }
+
+        private void NextStep()
+        {
             var board = this.game.Step();
             this.UpdateBoard(board);
         }
@@ -190,12 +199,29 @@ namespace GameOfLife
             }
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            this.NextStep();
+        }
+
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            this.timer.Start();
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
+            this.timer.Stop();
+        }
+
+        private void SpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.UpdateSpeed(Convert.ToInt32(this.SpeedSlider.Value));
+        }
+
+        private void UpdateSpeed(int milliseconds)
+        {
+            this.timer.Interval = new TimeSpan(0, 0, 0, 0, milliseconds);
         }
     }
 }
