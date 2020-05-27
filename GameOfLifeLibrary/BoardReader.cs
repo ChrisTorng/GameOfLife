@@ -22,21 +22,16 @@ namespace GameOfLife.Library
         {
             BoardReader reader = GetBoardReader(path);
             string content = File.ReadAllText(path);
-            return GetBoardByContent(reader, content);
+            return reader.GetBoardByContent(content);
         }
 
-        internal static Board GetPlaintextBoard(string content)
+        public Board GetBoardByContent(string content)
         {
-            return GetBoardByContent(new PlaintextBoardReader(), content);
-        }
+            this.SetContent(content);
+            this.SetBoardSize();
+            this.Parse();
 
-        private static Board GetBoardByContent(BoardReader reader, string content)
-        {
-            reader.SetContent(content);
-            reader.SetBoardSize();
-            reader.Parse();
-
-            return reader.Board;
+            return this.Board;
         }
 
         internal abstract void SetContent(string content);
