@@ -27,4 +27,13 @@
     <ProjectReference Include="..\GameOfLifeLibrary\GameOfLifeLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Patterns\1beacon.cells">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Patterns\1beacon.rle">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
