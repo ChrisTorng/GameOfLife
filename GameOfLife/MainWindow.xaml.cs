@@ -199,6 +199,22 @@ namespace GameOfLife
             }
         }
 
+        private void ImportComponent(Board component)
+        {
+            int widthOffset;
+            int heightOffset;
+            if (this.game.Board.Width < component.Width ||
+                this.game.Board.Height < component.Height)
+            {
+                this.InitializeBoard(component.Width, component.Height);
+            }
+
+            widthOffset = (this.game.Board.Width - component.Width) / 2;
+            heightOffset = (this.game.Board.Height - component.Height) / 2;
+
+            this.game.ImportComponent(widthOffset, heightOffset, component);
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             this.NextStep();
@@ -222,6 +238,16 @@ namespace GameOfLife
         private void UpdateSpeed(int milliseconds)
         {
             this.timer.Interval = new TimeSpan(0, 0, 0, 0, milliseconds);
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            var importWindow = new ImportWindow();
+            if (importWindow.ShowDialog().Value &&
+                importWindow.Component != null)
+            {
+                this.ImportComponent(importWindow.Component);
+            }
         }
     }
 }

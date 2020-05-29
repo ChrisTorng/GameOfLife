@@ -25,6 +25,11 @@ namespace GameOfLife.Library
             return this.CreateBoard(this.Board.Width, this.Board.Height);
         }
 
+        public Board ImportComponent(int widthOffset, int heightOffset, Board component)
+        {
+            return null;
+        }
+
         public Board NextBoard()
         {
             Board nextBoard = new Board(this.Board.Width, this.Board.Height);

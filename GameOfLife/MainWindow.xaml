@@ -17,7 +17,8 @@
             <TextBox x:Name="WidthTextBox" Width="100" Text="30" />
             <Label Content="Height:" Margin="10,0,0,0" />
             <TextBox x:Name="HeightTextBox" Width="100" Text="20" />
-            <Button x:Name="OkButton" Content="OK" Click="OkButton_Click" Margin="10,0,0,0"></Button>
+            <Button x:Name="OkButton" Content="OK" Click="OkButton_Click" Margin="10,0,0,0" />
+            <Button x:Name="ImportButton" Content="Import..." Click="ImportButton_Click" />
         </StackPanel>
         <Canvas x:Name="BoardCanvas" Grid.Row="1" Background="Bisque">
         </Canvas>
