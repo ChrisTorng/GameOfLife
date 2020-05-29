@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
+        Name="MyWindow"
         Title="Game of Life" Height="450" Width="800">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
@@ -23,6 +24,9 @@
         <Canvas x:Name="BoardCanvas" Grid.Row="1" Background="Bisque">
         </Canvas>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="Step:"/>
+            <TextBlock x:Name="StepTextBlock" Width="50"
+                       Text="{Binding ElementName=MyWindow, Path=Steps}"/>
             <Button x:Name="ResetButton" Content="Reset" Click="ResetButton_Click" />
             <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" />
             <Button x:Name="PlayButton" Content="Play" Click="PlayButton_Click" />

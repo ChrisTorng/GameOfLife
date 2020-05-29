@@ -25,6 +25,18 @@ namespace GameOfLife
             this.timer.Tick += this.Timer_Tick;
         }
 
+        public int Steps
+        {
+            get { return (int)this.GetValue(StepsProperty); }
+            set { this.SetValue(StepsProperty, value); }
+        }
+
+        public static readonly DependencyProperty StepsProperty =
+            DependencyProperty.Register("Steps",
+                typeof(int),
+                typeof(MainWindow),
+                new PropertyMetadata(0));
+
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             if (!int.TryParse(this.WidthTextBox.Text, out int width))
@@ -44,6 +56,7 @@ namespace GameOfLife
         {
             this.game.CreateBoard(width, height);
             this.DrawInitialBoard();
+            this.Steps = 0;
         }
 
         private void DrawInitialBoard()
@@ -171,6 +184,7 @@ namespace GameOfLife
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
+            this.timer.Stop();
             var board = this.game.Reset();
             this.UpdateBoard(board);
         }
@@ -197,6 +211,8 @@ namespace GameOfLife
                     this.DrawCellState(cell, state);
                 }
             }
+
+            this.Steps = this.game.Steps;
         }
 
         private void ImportComponent(Board component)

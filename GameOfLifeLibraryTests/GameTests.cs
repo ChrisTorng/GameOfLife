@@ -142,7 +142,6 @@ namespace GameOfLife.Library.Tests
             Assert.AreEqual(false, nextBoard.Columns[2][2]);
         }
 
-
         [TestMethod]
         public void Board3x3_3NeighborsBorn_NextBoard_Test()
         {
