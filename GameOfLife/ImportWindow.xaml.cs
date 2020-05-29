@@ -5,7 +5,7 @@ namespace GameOfLife
 {
     public partial class ImportWindow : Window
     {
-        public Board Component { get; }
+        public Board Component { get; private set; }
 
         public ImportWindow()
         {
@@ -19,6 +19,8 @@ namespace GameOfLife
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Component = new PlaintextBoardReader().GetBoardByContent(this.ContentTextBox.Text);
+
             this.DialogResult = true;
             this.Close();
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLife.Library.Tests
 {
@@ -222,6 +223,36 @@ namespace GameOfLife.Library.Tests
 
             Assert.AreEqual(0, game.Steps);
             BoardTests.BoardsEqual(new Board(1, 1), game.Board);
+        }
+
+        [TestMethod]
+        public void ImportComponent_Test()
+        {
+            var game = new Game();
+            var board = game.CreateBoard(3, 3);
+
+            board.Columns[0][0] = true;
+            board.Columns[1][1] = true;
+            board.Columns[2][2] = true;
+
+            var component = new Board(3, 3);
+            component.Columns[0][0] = true;
+            component.Columns[0][1] = true;
+            component.Columns[0][2] = true;
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+                game.ImportComponent(0, 0, null));
+
+            var actual = game.ImportComponent(1, 2, component);
+
+            Assert.AreEqual(game.Board, actual);
+
+            var expected = new Board(3, 3);
+            expected.Columns[0][0] = true;
+            expected.Columns[1][1] = true;
+            expected.Columns[1][2] = true;
+            expected.Columns[2][2] = true;
+            BoardTests.BoardsEqual(expected, game.Board);
         }
     }
 }

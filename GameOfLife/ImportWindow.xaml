@@ -15,7 +15,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button x:Name="LoadButton" Content="Load..." Click="LoadButton_Click" />
         </StackPanel>
-        <TextBox x:Name="ContentTextBox" Grid.Row="1" FontFamily="Consolas" />
+        <TextBox x:Name="ContentTextBox" Grid.Row="1" FontFamily="Consolas"
+                 AcceptsReturn="True"
+                 HorizontalScrollBarVisibility="Auto"
+                 VerticalScrollBarVisibility="Auto" />
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <Button x:Name="OkButton" Content="Ok" IsDefault="True" Click="OkButton_Click" />
             <Button x:Name="CancelButton" Content="Cancel" IsCancel="True" />

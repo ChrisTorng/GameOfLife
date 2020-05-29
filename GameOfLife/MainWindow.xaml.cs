@@ -219,7 +219,8 @@ namespace GameOfLife
         {
             int widthOffset;
             int heightOffset;
-            if (this.game.Board.Width < component.Width ||
+            if (this.game.Board == null ||
+                this.game.Board.Width < component.Width ||
                 this.game.Board.Height < component.Height)
             {
                 this.InitializeBoard(component.Width, component.Height);
@@ -228,7 +229,8 @@ namespace GameOfLife
             widthOffset = (this.game.Board.Width - component.Width) / 2;
             heightOffset = (this.game.Board.Height - component.Height) / 2;
 
-            this.game.ImportComponent(widthOffset, heightOffset, component);
+            var board = this.game.ImportComponent(widthOffset, heightOffset, component);
+            this.UpdateBoard(board);
         }
 
         private void Timer_Tick(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("GameOfLifeLibraryTests")]
 
@@ -28,7 +29,29 @@ namespace GameOfLife.Library
 
         public Board ImportComponent(int widthOffset, int heightOffset, Board component)
         {
-            return null;
+            if (component is null)
+            {
+                throw new ArgumentNullException(nameof(component));
+            }
+
+            for (int widthIndex = 0;
+                widthIndex < component.Width &&
+                widthIndex + widthOffset < this.Board.Width;
+                widthIndex++)
+            {
+                for (int heightIndex = 0;
+                    heightIndex < component.Height &&
+                    heightIndex + heightOffset < this.Board.Height;
+                    heightIndex++)
+                {
+                    if (component.Columns[widthIndex][heightIndex])
+                    {
+                        this.Board.Columns[widthIndex + widthOffset][heightIndex + heightOffset] = true;
+                    }
+                }
+            }
+
+            return this.Board;
         }
 
         public Board NextBoard()
