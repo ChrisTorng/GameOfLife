@@ -28,6 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Patterns\gosperglidergun.cells">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Patterns\gosperglidergun.rle">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Patterns\1beacon.cells">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
