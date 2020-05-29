@@ -142,6 +142,30 @@ namespace GameOfLife.Library.Tests
             Assert.AreEqual(false, nextBoard.Columns[2][2]);
         }
 
+
+        [TestMethod]
+        public void Board3x3_3NeighborsBorn_NextBoard_Test()
+        {
+            var game = new Game();
+            var board = game.CreateBoard(3, 3);
+
+            board.Columns[0][1] = true;
+            board.Columns[1][1] = true;
+            board.Columns[2][1] = true;
+
+            var nextBoard = game.NextBoard();
+
+            Assert.AreEqual(false, nextBoard.Columns[0][0]);
+            Assert.AreEqual(true, nextBoard.Columns[1][0]);
+            Assert.AreEqual(false, nextBoard.Columns[2][0]);
+            Assert.AreEqual(false, nextBoard.Columns[0][1]);
+            Assert.AreEqual(true, nextBoard.Columns[1][1]);
+            Assert.AreEqual(false, nextBoard.Columns[2][1]);
+            Assert.AreEqual(false, nextBoard.Columns[0][2]);
+            Assert.AreEqual(true, nextBoard.Columns[1][2]);
+            Assert.AreEqual(false, nextBoard.Columns[2][2]);
+        }
+
         [TestMethod]
         public void Board3x3_Full_NextBoard_Test()
         {
@@ -169,6 +193,36 @@ namespace GameOfLife.Library.Tests
             Assert.AreEqual(true, nextBoard.Columns[0][2]);
             Assert.AreEqual(false, nextBoard.Columns[1][2]);
             Assert.AreEqual(true, nextBoard.Columns[2][2]);
+        }
+
+        [TestMethod]
+        public void Steps_Test()
+        {
+            var game = new Game();
+            Assert.AreEqual(0, game.Steps);
+
+            game.CreateBoard(1, 1);
+            Assert.AreEqual(0, game.Steps);
+            game.NextBoard();
+            Assert.AreEqual(0, game.Steps);
+            game.Step();
+            Assert.AreEqual(1, game.Steps);
+            game.Step();
+            Assert.AreEqual(2, game.Steps);
+        }
+
+        [TestMethod]
+        public void Reset_Test()
+        {
+            var game = new Game();
+            game.CreateBoard(1, 1);
+            game.Board.Columns[0][0] = true;
+            game.Step();
+
+            game.Reset();
+
+            Assert.AreEqual(0, game.Steps);
+            BoardTests.BoardsEqual(new Board(1, 1), game.Board);
         }
     }
 }

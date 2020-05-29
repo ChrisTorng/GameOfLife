@@ -22,6 +22,7 @@ namespace GameOfLife.Library
 
         public Board Reset()
         {
+            this.Steps = 0;
             return this.CreateBoard(this.Board.Width, this.Board.Height);
         }
 
