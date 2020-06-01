@@ -91,7 +91,7 @@ namespace GameOfLife.Library.Tests
         }
 
         [TestMethod]
-        public void Parse_Test()
+        public void Parse_1x1Dead_Test()
         {
             var reader = new PlaintextBoardReader();
 
@@ -101,32 +101,56 @@ namespace GameOfLife.Library.Tests
 
             var expectedBoard = new Board(1, 1);
             expectedBoard.Columns[0][0] = false;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
+        public void Parse_1x1Alive_Test()
+        {
+            var reader = new PlaintextBoardReader();
 
             reader.SetContent("O");
             reader.SetBoardSize();
             reader.Parse();
 
-            expectedBoard = new Board(1, 1);
+            var expectedBoard = new Board(1, 1);
             expectedBoard.Columns[0][0] = true;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
+        public void Parse_3x1Case1_Test()
+        {
+            var reader = new PlaintextBoardReader();
 
             reader.SetContent("OO.");
             reader.SetBoardSize();
             reader.Parse();
 
-            expectedBoard = new Board(3, 1);
+            var expectedBoard = new Board(3, 1);
             expectedBoard.Columns[0][0] = true;
             expectedBoard.Columns[1][0] = true;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
+        public void Parse_3x1Case2_Test()
+        {
+            var reader = new PlaintextBoardReader();
 
             reader.SetContent(".O.");
             reader.SetBoardSize();
             reader.Parse();
 
-            expectedBoard = new Board(3, 1);
+            var expectedBoard = new Board(3, 1);
             expectedBoard.Columns[1][0] = true;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
+        public void Parse_1x2TwoLines_Test()
+        {
+            var reader = new PlaintextBoardReader();
 
             reader.SetContent(
 @"O
@@ -134,9 +158,15 @@ namespace GameOfLife.Library.Tests
             reader.SetBoardSize();
             reader.Parse();
 
-            expectedBoard = new Board(1, 2);
+            var expectedBoard = new Board(1, 2);
             expectedBoard.Columns[0][0] = true;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
+        public void Parse_3x4_Test()
+        {
+            var reader = new PlaintextBoardReader();
 
             reader.SetContent(
 @"
@@ -146,10 +176,10 @@ OO.
             reader.SetBoardSize();
             reader.Parse();
 
-            expectedBoard = new Board(3, 4);
+            var expectedBoard = new Board(3, 4);
             expectedBoard.Columns[0][2] = true;
             expectedBoard.Columns[1][2] = true;
-            BoardTests.BoardsEqual(expectedBoard, reader.Board);
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
     }
 }

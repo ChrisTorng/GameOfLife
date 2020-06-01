@@ -26,7 +26,7 @@ namespace GameOfLife.Library.Tests
             var board = game.CreateBoard(2, 3);
             var nextBoard = game.NextBoard();
 
-            BoardTests.BoardsEqual(board, nextBoard);
+            Assert.That.BoardsEqual(board, nextBoard);
         }
 
         [TestMethod]
@@ -116,13 +116,13 @@ namespace GameOfLife.Library.Tests
             var expectedBoard = new Board(1, 1);
             expectedBoard.Columns[0][0] = false;
 
-            BoardTests.BoardsEqual(expectedBoard, nextBoard);
+            Assert.That.BoardsEqual(expectedBoard, nextBoard);
 
             game.Board.Columns[0][0] = true;
             nextBoard = game.NextBoard();
 
             expectedBoard.Columns[0][0] = false;
-            BoardTests.BoardsEqual(expectedBoard, nextBoard);
+            Assert.That.BoardsEqual(expectedBoard, nextBoard);
         }
 
         [TestMethod]
@@ -222,7 +222,7 @@ namespace GameOfLife.Library.Tests
             game.Reset();
 
             Assert.AreEqual(0, game.Steps);
-            BoardTests.BoardsEqual(new Board(1, 1), game.Board);
+            Assert.That.BoardsEqual(new Board(1, 1), game.Board);
         }
 
         [TestMethod]
@@ -252,7 +252,7 @@ namespace GameOfLife.Library.Tests
             expected.Columns[1][1] = true;
             expected.Columns[1][2] = true;
             expected.Columns[2][2] = true;
-            BoardTests.BoardsEqual(expected, game.Board);
+            Assert.That.BoardsEqual(expected, game.Board);
         }
     }
 }

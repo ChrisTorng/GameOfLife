@@ -27,7 +27,7 @@ O.O");
             expected.Columns[1][0] = true;
             expected.Columns[0][1] = true;
             expected.Columns[2][1] = true;
-            BoardTests.BoardsEqual(expected, board);
+            Assert.That.BoardsEqual(expected, board);
 
             board = new PlaintextBoardReader().GetBoardByContent(
 @"!Name: 1 beacon
@@ -60,7 +60,7 @@ OO.O..O
             expected.Columns[4][5] = true;
             expected.Columns[2][6] = true;
             expected.Columns[3][6] = true;
-            BoardTests.BoardsEqual(expected, board);
+            Assert.That.BoardsEqual(expected, board);
         }
     }
 }
