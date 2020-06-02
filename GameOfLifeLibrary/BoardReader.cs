@@ -5,13 +5,20 @@ namespace GameOfLife.Library
 {
     public abstract class BoardReader
     {
+        protected BoardReader(IReader reader)
+        {
+            this.Reader = reader;
+        }
+
         public Board Board { get; protected set; }
+
+        public IReader Reader { get; }
 
         internal static BoardReader GetBoardReader(string path)
         {
             if (Path.GetExtension(path) == ".cells")
             {
-                return new PlaintextBoardReader();
+                return new PlaintextBoardReader(new FileReader());
             }
 
             throw new ArgumentOutOfRangeException(nameof(path),
@@ -21,7 +28,7 @@ namespace GameOfLife.Library
         public static Board GetBoard(string path)
         {
             BoardReader reader = GetBoardReader(path);
-            string content = File.ReadAllText(path);
+            string content = reader.Reader.ReadAll(path);
             return reader.GetBoardByContent(content);
         }
 

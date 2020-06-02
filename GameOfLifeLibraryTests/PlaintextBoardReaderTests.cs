@@ -9,7 +9,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void SetContent_Invalid_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             Assert.ThrowsException<ArgumentNullException>(() => reader.SetContent(null));
 
@@ -27,7 +27,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void SetBoardSize_Invalid_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(
 @"!
@@ -40,7 +40,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void SetBoardSize_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(".");
             reader.SetBoardSize();
@@ -93,7 +93,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_1x1Dead_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(".");
             reader.SetBoardSize();
@@ -107,7 +107,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_1x1Alive_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent("O");
             reader.SetBoardSize();
@@ -121,7 +121,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_WithComment_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(
 @"!
@@ -137,7 +137,7 @@ O");
         [TestMethod]
         public void Parse_3x1Case1_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent("OO.");
             reader.SetBoardSize();
@@ -152,7 +152,7 @@ O");
         [TestMethod]
         public void Parse_3x1Case2_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(".O.");
             reader.SetBoardSize();
@@ -166,7 +166,7 @@ O");
         [TestMethod]
         public void Parse_1x2TwoLines_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(
 @"O
@@ -182,7 +182,7 @@ O");
         [TestMethod]
         public void Parse_3x4_Test()
         {
-            var reader = new PlaintextBoardReader();
+            var reader = new PlaintextBoardReader(new MockReader(null));
 
             reader.SetContent(
 @"

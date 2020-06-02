@@ -19,7 +19,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Plaintext_GetBoardByContent_Test()
         {
-            var board = new PlaintextBoardReader().GetBoardByContent(
+            var board = new PlaintextBoardReader(new MockReader(null)).GetBoardByContent(
 @".O.
 O.O");
 
@@ -29,7 +29,7 @@ O.O");
             expected.Columns[2][1] = true;
             Assert.That.BoardsEqual(expected, board);
 
-            board = new PlaintextBoardReader().GetBoardByContent(
+            board = new PlaintextBoardReader(new MockReader(null)).GetBoardByContent(
 @"!Name: 1 beacon
 !Approximately the 32nd-most common oscillator.
 !www.conwaylife.com/wiki/index.php?title=1_beacon
