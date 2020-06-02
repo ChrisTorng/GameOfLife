@@ -45,10 +45,10 @@ namespace GameOfLife.Library
             this.Board = new Board(width, height);
         }
 
-        private (int width, int height) GetBoardSize()
+        private (int Width, int Height) GetBoardSize()
         {
-            int width = this.lines.Max(line => this.ValidLineWidth(line));
-            int height = this.lines.Count(line => this.ValidLineWidth(line) >= 0);
+            int width = this.lines.Max(line => line.Length);
+            int height = this.lines.Length;
 
             if (width <= 0)
             {
@@ -58,35 +58,16 @@ namespace GameOfLife.Library
             return (width, height);
         }
 
-        private int ValidLineWidth(string line)
-        {
-            if (IsCommentLine(line))
-            {
-                return -1;
-            }
-
-            return line.Length;
-        }
-
         internal override void Parse()
         {
-            int heightIndex = 0;
-            foreach (string line in this.lines)
+            for (int heightIndex = 0; heightIndex < this.lines.Length; heightIndex++)
             {
-                if (this.ParseLine(heightIndex, line))
-                {
-                    heightIndex++;
-                }
+                this.ParseLine(heightIndex, this.lines[heightIndex]);
             }
         }
 
-        private bool ParseLine(int heightIndex, string line)
+        private void ParseLine(int heightIndex, string line)
         {
-            if (IsCommentLine(line))
-            {
-                return false;
-            }
-
             for (int widthIndex = 0; widthIndex < line.Length; widthIndex++)
             {
                 if (line[widthIndex] == AliveChar)
@@ -94,8 +75,6 @@ namespace GameOfLife.Library
                     this.Board.Columns[widthIndex][heightIndex] = true;
                 }
             }
-
-            return true;
         }
 
         private static bool IsCommentLine(string line)

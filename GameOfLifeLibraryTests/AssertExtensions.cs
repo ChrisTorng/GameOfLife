@@ -4,7 +4,9 @@ namespace GameOfLife.Library.Tests
 {
     public static class AssertExtensions
     {
+#pragma warning disable SA1313 // Parameter names should begin with lower-case letter
         internal static void BoardsEqual(this Assert _, Board expected, Board actual)
+#pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
             Assert.AreEqual(expected.Width, actual.Width);
             Assert.AreEqual(expected.Height, actual.Height);

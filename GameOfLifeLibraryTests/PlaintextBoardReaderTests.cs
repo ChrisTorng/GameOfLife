@@ -119,6 +119,22 @@ namespace GameOfLife.Library.Tests
         }
 
         [TestMethod]
+        public void Parse_WithComment_Test()
+        {
+            var reader = new PlaintextBoardReader();
+
+            reader.SetContent(
+@"!
+O");
+            reader.SetBoardSize();
+            reader.Parse();
+
+            var expectedBoard = new Board(1, 1);
+            expectedBoard.Columns[0][0] = true;
+            Assert.That.BoardsEqual(expectedBoard, reader.Board);
+        }
+
+        [TestMethod]
         public void Parse_3x1Case1_Test()
         {
             var reader = new PlaintextBoardReader();

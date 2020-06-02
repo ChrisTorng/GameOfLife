@@ -173,7 +173,7 @@ namespace GameOfLife
 
         private void FlipCell(Rectangle cell)
         {
-            (int x, int y) = (ValueTuple<int, int>)cell.Tag;
+            (int x, int y) = ((int, int))cell.Tag;
             this.DrawCellState(cell, this.game.Board.Flip(x, y));
         }
 
