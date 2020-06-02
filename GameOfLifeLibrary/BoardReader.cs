@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace GameOfLife.Library
+﻿namespace GameOfLife.Library
 {
     public abstract class BoardReader
     {
@@ -13,24 +10,6 @@ namespace GameOfLife.Library
         public Board Board { get; protected set; }
 
         public IReader Reader { get; }
-
-        internal static BoardReader GetBoardReader(string path)
-        {
-            if (Path.GetExtension(path) == ".cells")
-            {
-                return new PlaintextBoardReader(new FileReader());
-            }
-
-            throw new ArgumentOutOfRangeException(nameof(path),
-                "Only Plaintext .cells file allowed.");
-        }
-
-        public static Board GetBoard(string path)
-        {
-            BoardReader reader = GetBoardReader(path);
-            string content = reader.Reader.ReadAll(path);
-            return reader.GetBoardByContent(content);
-        }
 
         public Board GetBoardByContent(string content)
         {

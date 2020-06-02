@@ -35,8 +35,9 @@ namespace GameOfLife
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Component = new PlaintextBoardReader(new FileReader())
-                .GetBoardByContent(this.ContentTextBox.Text);
+            var boardReader = new BoardReaderBuilder(BoardReaderType.Plaintext).Build();
+
+            this.Component = boardReader.GetBoardByContent(this.ContentTextBox.Text);
 
             this.DialogResult = true;
             this.Close();

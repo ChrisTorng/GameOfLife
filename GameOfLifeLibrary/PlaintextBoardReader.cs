@@ -9,7 +9,7 @@ namespace GameOfLife.Library
         private const char AliveChar = 'O';
         private string[] lines;
 
-        public PlaintextBoardReader(IReader reader)
+        internal PlaintextBoardReader(IReader reader)
             : base(reader)
         {
         }

@@ -1,25 +1,17 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLife.Library.Tests
 {
     [TestClass]
     public class BoardReaderTests
     {
-        [TestMethod]
-        public void GetBoardReader_Test()
-        {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                BoardReader.GetBoardReader("a.b"));
-
-            var boardReader = BoardReader.GetBoardReader("a.cells");
-            Assert.IsInstanceOfType(boardReader, typeof(PlaintextBoardReader));
-        }
+        private static PlaintextBoardReader GetPlaintextBoardReader() =>
+            new BoardReaderBuilder(BoardReaderType.Plaintext).Build() as PlaintextBoardReader;
 
         [TestMethod]
         public void Plaintext_GetBoardByContent_Test()
         {
-            var board = new PlaintextBoardReader(new MockReader(null)).GetBoardByContent(
+            var board = GetPlaintextBoardReader().GetBoardByContent(
 @".O.
 O.O");
 
@@ -29,7 +21,7 @@ O.O");
             expected.Columns[2][1] = true;
             Assert.That.BoardsEqual(expected, board);
 
-            board = new PlaintextBoardReader(new MockReader(null)).GetBoardByContent(
+            board = GetPlaintextBoardReader().GetBoardByContent(
 @"!Name: 1 beacon
 !Approximately the 32nd-most common oscillator.
 !www.conwaylife.com/wiki/index.php?title=1_beacon
