@@ -43,7 +43,7 @@ namespace GameOfLife.Library
 #pragma warning restore IDE0010 // Add missing cases
             {
             case BoardReaderType.Plaintext:
-                return new PlaintextBoardReader(this.Importer);
+                return new PlaintextBoardReader();
             default:
                 throw new NotImplementedException();
             }

@@ -49,10 +49,7 @@ namespace GameOfLife.Library.Tests
             var mockReader = new MockImporter(null);
             builder.SetImporter(mockReader);
 
-            var boardReader = builder.Build();
-
-            Assert.IsInstanceOfType(boardReader.Importer, typeof(MockImporter));
-            Assert.AreEqual(mockReader, boardReader.Importer);
+            builder.Build();
         }
     }
 }
