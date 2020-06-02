@@ -4,27 +4,9 @@ namespace GameOfLife.Library
 {
     public class BoardReaderBuilder
     {
-        private IReader reader;
-
         public BoardReaderType Type { get; }
 
-        public IReader Reader
-        {
-            get
-            {
-                if (this.reader == null)
-                {
-                    this.reader = new FileReader();
-                }
-
-                return this.reader;
-            }
-
-            private set
-            {
-                this.reader = value;
-            }
-        }
+        public IImporter Importer { get; private set; }
 
         public BoardReaderBuilder(BoardReaderType type)
         {
@@ -37,25 +19,31 @@ namespace GameOfLife.Library
             this.Type = type;
         }
 
-        public BoardReaderBuilder SetReader(IReader reader)
+        public BoardReaderBuilder SetImporter(IImporter importer)
         {
-            if (reader is null)
+            if (importer is null)
             {
-                throw new ArgumentNullException(nameof(reader));
+                throw new ArgumentNullException(nameof(importer));
             }
 
-            this.Reader = reader;
+            this.Importer = importer;
             return this;
         }
 
         public BoardReader Build()
         {
+            if (this.Importer == null)
+            {
+                throw new InvalidOperationException(
+                    $"Call {nameof(this.SetImporter)}() method first.");
+            }
+
 #pragma warning disable IDE0010 // Add missing cases
             switch (this.Type)
 #pragma warning restore IDE0010 // Add missing cases
             {
             case BoardReaderType.Plaintext:
-                return new PlaintextBoardReader(this.Reader);
+                return new PlaintextBoardReader(this.Importer);
             default:
                 throw new NotImplementedException();
             }

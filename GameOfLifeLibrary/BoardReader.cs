@@ -2,17 +2,27 @@
 {
     public abstract class BoardReader
     {
-        protected BoardReader(IReader reader)
+        protected BoardReader(IImporter importer)
         {
-            this.Reader = reader;
+            this.Importer = importer;
         }
 
         public Board Board { get; protected set; }
 
-        public IReader Reader { get; }
+        public IImporter Importer { get; }
 
         public Board GetBoardByContent(string content)
         {
+            this.SetContent(content);
+            this.SetBoardSize();
+            this.Parse();
+
+            return this.Board;
+        }
+
+        public Board GetBoardByImporter()
+        {
+            var content = this.Importer.Import();
             this.SetContent(content);
             this.SetBoardSize();
             this.Parse();

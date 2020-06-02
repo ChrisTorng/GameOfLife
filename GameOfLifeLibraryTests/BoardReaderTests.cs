@@ -5,15 +5,18 @@ namespace GameOfLife.Library.Tests
     [TestClass]
     public class BoardReaderTests
     {
-        private static PlaintextBoardReader GetPlaintextBoardReader() =>
-            new BoardReaderBuilder(BoardReaderType.Plaintext).Build() as PlaintextBoardReader;
+        private static PlaintextBoardReader GetPlaintextBoardReader(string content) =>
+            new BoardReaderBuilder(BoardReaderType.Plaintext)
+                .SetImporter(new MockImporter(content))
+                .Build() as PlaintextBoardReader;
 
         [TestMethod]
         public void Plaintext_GetBoardByContent_Test()
         {
-            var board = GetPlaintextBoardReader().GetBoardByContent(
+            var board = GetPlaintextBoardReader(
 @".O.
-O.O");
+O.O")
+                .GetBoardByImporter();
 
             var expected = new Board(3, 2);
             expected.Columns[1][0] = true;
@@ -21,7 +24,7 @@ O.O");
             expected.Columns[2][1] = true;
             Assert.That.BoardsEqual(expected, board);
 
-            board = GetPlaintextBoardReader().GetBoardByContent(
+            board = GetPlaintextBoardReader(
 @"!Name: 1 beacon
 !Approximately the 32nd-most common oscillator.
 !www.conwaylife.com/wiki/index.php?title=1_beacon
@@ -31,7 +34,8 @@ O..O.OO
 OO.O..O
 .O.O
 .O..O
-..OO");
+..OO")
+                .GetBoardByImporter();
 
             expected = new Board(7, 7);
             expected.Columns[2][0] = true;

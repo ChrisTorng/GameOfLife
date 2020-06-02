@@ -28,9 +28,8 @@ namespace GameOfLife.Library.Tests
         public void PlaintextType_NoSetReader_Test()
         {
             var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
-            var boardReader = builder.Build();
-
-            Assert.IsInstanceOfType(boardReader.Reader, typeof(FileReader));
+            Assert.ThrowsException<InvalidOperationException>(() =>
+                builder.Build());
         }
 
         [TestMethod]
@@ -39,7 +38,7 @@ namespace GameOfLife.Library.Tests
             var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
 
             Assert.ThrowsException<ArgumentNullException>(() =>
-                builder.SetReader(null));
+                builder.SetImporter(null));
         }
 
         [TestMethod]
@@ -47,13 +46,13 @@ namespace GameOfLife.Library.Tests
         {
             var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
 
-            var mockReader = new MockReader(null);
-            builder.SetReader(mockReader);
+            var mockReader = new MockImporter(null);
+            builder.SetImporter(mockReader);
 
             var boardReader = builder.Build();
 
-            Assert.IsInstanceOfType(boardReader.Reader, typeof(MockReader));
-            Assert.AreEqual(mockReader, boardReader.Reader);
+            Assert.IsInstanceOfType(boardReader.Importer, typeof(MockImporter));
+            Assert.AreEqual(mockReader, boardReader.Importer);
         }
     }
 }
