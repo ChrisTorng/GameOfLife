@@ -7,7 +7,6 @@ namespace GameOfLife.Library.Tests
     {
         private static PlaintextBoardReader GetPlaintextBoardReader() =>
             new BoardReaderBuilder(BoardReaderType.Plaintext)
-                .SetImporter(new MockImporter())
                 .Build() as PlaintextBoardReader;
 
         [TestMethod]

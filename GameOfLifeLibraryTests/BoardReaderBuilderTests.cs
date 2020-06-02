@@ -23,33 +23,5 @@ namespace GameOfLife.Library.Tests
 
             Assert.AreEqual(BoardReaderType.Plaintext, builder.Type);
         }
-
-        [TestMethod]
-        public void PlaintextType_NoSetReader_Test()
-        {
-            var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
-            Assert.ThrowsException<InvalidOperationException>(() =>
-                builder.Build());
-        }
-
-        [TestMethod]
-        public void PlaintextType_SetReaderNull_Test()
-        {
-            var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                builder.SetImporter(null));
-        }
-
-        [TestMethod]
-        public void PlaintextType_SetReader_Test()
-        {
-            var builder = new BoardReaderBuilder(BoardReaderType.Plaintext);
-
-            var mockReader = new MockImporter(null);
-            builder.SetImporter(mockReader);
-
-            builder.Build();
-        }
     }
 }
