@@ -1,21 +1,52 @@
-﻿namespace GameOfLife.Library
+﻿using System;
+
+namespace GameOfLife.Library
 {
     public abstract class BoardReader
     {
         public Board Board { get; protected set; }
 
-        public Board GetBoardByContent(string content)
+        public string Content { get; }
+
+        protected BoardReader(string content)
         {
-            this.SetContent(content);
+            if (content is null)
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                throw new ArgumentException(
+                    $"Parameter {nameof(content)} should have valid content.",
+                    nameof(content));
+            }
+
+            this.Content = content;
+        }
+
+        public Board GetBoardByContent()
+        {
+            if (!this.Validate())
+            {
+                return null;
+            }
+
             this.SetBoardSize();
             this.Parse();
 
             return this.Board;
         }
 
-        internal abstract void SetContent(string content);
+        public abstract bool Validate();
 
-        internal abstract void SetBoardSize();
+        internal void SetBoardSize()
+        {
+            (int width, int height) = this.GetBoardSize();
+            this.Board = new Board(width, height);
+        }
+
+        internal abstract (int Width, int Height) GetBoardSize();
 
         internal abstract void Parse();
     }

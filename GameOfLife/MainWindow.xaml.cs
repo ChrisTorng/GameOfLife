@@ -174,10 +174,10 @@ namespace GameOfLife
         private void FlipCell(Rectangle cell)
         {
             (int x, int y) = ((int, int))cell.Tag;
-            this.DrawCellState(cell, this.game.Board.Flip(x, y));
+            DrawCellState(cell, this.game.Board.Flip(x, y));
         }
 
-        private void DrawCellState(Rectangle cell, bool alive)
+        private static void DrawCellState(Rectangle cell, bool alive)
         {
             cell.Fill = alive ? Brushes.Bisque : Brushes.YellowGreen;
         }
@@ -208,7 +208,7 @@ namespace GameOfLife
                 {
                     var state = board.Columns[widthIndex][heightIndex];
                     var cell = this.cells[widthIndex, heightIndex];
-                    this.DrawCellState(cell, state);
+                    DrawCellState(cell, state);
                 }
             }
 

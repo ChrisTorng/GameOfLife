@@ -6,89 +6,108 @@ namespace GameOfLife.Library.Tests
     [TestClass]
     public class PlaintextBoardReaderTests
     {
-        private static PlaintextBoardReader GetPlaintextBoardReader() =>
+        private static PlaintextBoardReader GetPlaintextBoardReader(string content) =>
             new BoardReaderBuilder(BoardReaderType.Plaintext)
+                .SetContent(content)
                 .Build() as PlaintextBoardReader;
 
         [TestMethod]
-        public void SetContent_Invalid_Test()
+        public void Content_Invalid_Test()
         {
-            var reader = GetPlaintextBoardReader();
+            Assert.ThrowsException<ArgumentNullException>(() => GetPlaintextBoardReader(null));
 
-            Assert.ThrowsException<ArgumentNullException>(() => reader.SetContent(null));
+            Assert.ThrowsException<ArgumentException>(() => GetPlaintextBoardReader(string.Empty));
 
-            Assert.ThrowsException<ArgumentException>(() => reader.SetContent(string.Empty));
-
-            Assert.ThrowsException<ArgumentException>(() => reader.SetContent(" "));
-
-            Assert.ThrowsException<ArgumentException>(() => reader.SetContent("!"));
-
-            Assert.ThrowsException<ArgumentException>(() => reader.SetContent(
-@"!
-!"));
+            Assert.ThrowsException<ArgumentException>(() => GetPlaintextBoardReader(" "));
         }
 
         [TestMethod]
-        public void SetBoardSize_Invalid_Test()
-        {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(
+        [DataRow("!")]
+        [DataRow(
+@"!
+!")]
+        [DataRow(
 @"!
 
+ 
+!comment")]
+        public void Validate_Invalid_Test(string content)
+        {
+            var reader = GetPlaintextBoardReader(content);
+            Assert.IsFalse(reader.Validate());
+        }
 
+        [TestMethod]
+        public void GetBoardSize_Invalid_Test()
+        {
+            var reader = GetPlaintextBoardReader(
+@"!
+
+ 
+.
+.O
 !comment");
-            Assert.ThrowsException<InvalidOperationException>(() => reader.SetBoardSize());
+            reader.Validate();
+
+            (int width, int height) = reader.GetBoardSize();
+
+            Assert.AreEqual(2, width);
+            Assert.AreEqual(2, height);
         }
 
         [TestMethod]
         public void SetBoardSize_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(".");
+            var reader = GetPlaintextBoardReader(".");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(1, reader.Board.Width);
             Assert.AreEqual(1, reader.Board.Height);
 
-            reader.SetContent("..");
+            reader = GetPlaintextBoardReader("..");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(2, reader.Board.Width);
             Assert.AreEqual(1, reader.Board.Height);
 
-            reader.SetContent(
+            reader = GetPlaintextBoardReader(
 @".
 ");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(1, reader.Board.Width);
-            Assert.AreEqual(2, reader.Board.Height);
+            Assert.AreEqual(1, reader.Board.Height);
 
-            reader.SetContent(
+            reader = GetPlaintextBoardReader(
 @"
 .");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(1, reader.Board.Width);
-            Assert.AreEqual(2, reader.Board.Height);
+            Assert.AreEqual(1, reader.Board.Height);
 
-            reader.SetContent(
+            reader = GetPlaintextBoardReader(
 @"..
 .");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(2, reader.Board.Width);
             Assert.AreEqual(2, reader.Board.Height);
 
-            reader.SetContent(
+            reader = GetPlaintextBoardReader(
 @".
 ..");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(2, reader.Board.Width);
             Assert.AreEqual(2, reader.Board.Height);
 
-            reader.SetContent(
+            reader = GetPlaintextBoardReader(
 @"!comment
 .
 ..
 !comment");
+            reader.Validate();
             reader.SetBoardSize();
             Assert.AreEqual(2, reader.Board.Width);
             Assert.AreEqual(2, reader.Board.Height);
@@ -97,9 +116,8 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_1x1Dead_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(".");
+            var reader = GetPlaintextBoardReader(".");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -111,9 +129,8 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_1x1Alive_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent("O");
+            var reader = GetPlaintextBoardReader("O");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -125,11 +142,10 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Parse_WithComment_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(
+            var reader = GetPlaintextBoardReader(
 @"!
 O");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -141,9 +157,8 @@ O");
         [TestMethod]
         public void Parse_3x1Case1_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent("OO.");
+            var reader = GetPlaintextBoardReader("OO.");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -156,9 +171,8 @@ O");
         [TestMethod]
         public void Parse_3x1Case2_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(".O.");
+            var reader = GetPlaintextBoardReader(".O.");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -170,11 +184,10 @@ O");
         [TestMethod]
         public void Parse_1x2TwoLines_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(
+            var reader = GetPlaintextBoardReader(
 @"O
-");
+.");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 
@@ -186,13 +199,12 @@ O");
         [TestMethod]
         public void Parse_3x4_Test()
         {
-            var reader = GetPlaintextBoardReader();
-
-            reader.SetContent(
-@"
-
+            var reader = GetPlaintextBoardReader(
+@".
+.
 OO.
-");
+.");
+            reader.Validate();
             reader.SetBoardSize();
             reader.Parse();
 

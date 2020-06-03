@@ -6,6 +6,8 @@ namespace GameOfLife.Library
     {
         public BoardReaderType Type { get; }
 
+        public string Content { get; private set; }
+
         public BoardReaderBuilder(BoardReaderType type)
         {
             if (!Enum.IsDefined(typeof(BoardReaderType), type) ||
@@ -17,6 +19,12 @@ namespace GameOfLife.Library
             this.Type = type;
         }
 
+        public BoardReaderBuilder SetContent(string content)
+        {
+            this.Content = content;
+            return this;
+        }
+
         public BoardReader Build()
         {
 #pragma warning disable IDE0010 // Add missing cases
@@ -24,7 +32,8 @@ namespace GameOfLife.Library
 #pragma warning restore IDE0010 // Add missing cases
             {
             case BoardReaderType.Plaintext:
-                return new PlaintextBoardReader();
+                return new PlaintextBoardReader(this.Content);
+
             default:
                 throw new NotImplementedException();
             }

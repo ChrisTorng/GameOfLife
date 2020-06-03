@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace GameOfLife.Library
 {
@@ -9,51 +8,35 @@ namespace GameOfLife.Library
         private const char AliveChar = 'O';
         private string[] lines;
 
-        internal PlaintextBoardReader()
+        public PlaintextBoardReader(string content)
+            : base(content)
         {
         }
 
-        internal override void SetContent(string content)
+        public override bool Validate()
         {
-            if (content is null)
-            {
-                throw new ArgumentNullException(nameof(content));
-            }
-
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                throw new ArgumentException(
-                    $"Parameter {nameof(content)} should have valid content.",
-                    nameof(content));
-            }
-
-            this.lines = content.Split('\n')
-                .Where(line => !IsCommentLine(line))
+            this.lines = this.Content.Split('\n')
+                .Where(line => line.Trim().Length > 0 && !IsCommentLine(line))
                 .Select(line => line.Trim()).ToArray();
 
             if (this.lines.Length == 0)
             {
-                throw new ArgumentException(
-                    $"Parameter {nameof(content)} should have valid content except comment line.",
-                    nameof(content));
+                return false;
             }
-        }
 
-        internal override void SetBoardSize()
-        {
             (int width, int height) = this.GetBoardSize();
-            this.Board = new Board(width, height);
+            if (width <= 0 || height <= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        private (int Width, int Height) GetBoardSize()
+        internal override (int Width, int Height) GetBoardSize()
         {
             int width = this.lines.Max(line => line.Length);
             int height = this.lines.Length;
-
-            if (width <= 0)
-            {
-                throw new InvalidOperationException("No line has valid content while counting width.");
-            }
 
             return (width, height);
         }
