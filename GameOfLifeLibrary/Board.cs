@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace GameOfLife.Library
 {
@@ -21,6 +22,17 @@ namespace GameOfLife.Library
 #pragma warning disable CA1819 // Properties should not return arrays
         public BitArray[] Columns { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
+
+#pragma warning disable CA1043 // Use Integral Or String Argument For Indexers
+        public bool this[AreaPosition areaPosition]
+#pragma warning restore CA1043 // Use Integral Or String Argument For Indexers
+        {
+            get => this.Columns[areaPosition.X][areaPosition.Y];
+            set => this.Columns[areaPosition.X][areaPosition.Y] = value;
+        }
+
+        public void ForEachPosition(Action<AreaPosition> action)
+            => this.AreaSize.ForEachPosition(action);
 
         public bool Flip(int x, int y)
         {

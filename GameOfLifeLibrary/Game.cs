@@ -27,13 +27,15 @@ namespace GameOfLife.Library
             return this.CreateBoard(this.Board.AreaSize);
         }
 
-        public Board ImportComponent(int widthOffset, int heightOffset, Board component)
+        public Board ImportComponent(AreaPosition areaPosition, Board component)
         {
             if (component is null)
             {
                 throw new ArgumentNullException(nameof(component));
             }
 
+            int widthOffset = areaPosition.X;
+            int heightOffset = areaPosition.Y;
             for (int widthIndex = 0;
                 widthIndex < component.AreaSize.Width &&
                 widthIndex + widthOffset < this.Board.AreaSize.Width;
@@ -69,62 +71,54 @@ namespace GameOfLife.Library
 
         private void ApplyBoardRules(Board nextBoard)
         {
-            for (int widthIndex = 0; widthIndex < this.Board.AreaSize.Width; widthIndex++)
-            {
-                for (int heightIndex = 0; heightIndex < this.Board.AreaSize.Height; heightIndex++)
-                {
-                    this.ApplyCellRules(widthIndex, heightIndex, nextBoard);
-                }
-            }
+            this.Board.ForEachPosition(areaPosition =>
+                this.ApplyCellRules(areaPosition, nextBoard));
         }
 
-        internal void ApplyCellRules(int widthIndex, int heightIndex, Board nextBoard)
+        internal void ApplyCellRules(AreaPosition areaPosition, Board nextBoard)
         {
-            int aliveNeighbors = this.GetAliveNeighbors(widthIndex, heightIndex);
-            if (this.Board.Columns[widthIndex][heightIndex])
+            int aliveNeighbors = this.GetAliveNeighbors(areaPosition);
+            if (this.Board[areaPosition])
             {
                 if (aliveNeighbors >= 2 && aliveNeighbors <= 3)
                 {
-                    nextBoard.Columns[widthIndex][heightIndex] = true;
+                    nextBoard[areaPosition] = true;
                 }
             }
             else
             {
                 if (aliveNeighbors == 3)
                 {
-                    nextBoard.Columns[widthIndex][heightIndex] = true;
+                    nextBoard[areaPosition] = true;
                 }
             }
         }
 
-        internal int GetAliveNeighbors(int widthIndex, int heightIndex)
+        internal int GetAliveNeighbors(AreaPosition currentPosition)
         {
             int aliveNeighbors = 0;
 
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, -1);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 0, -1);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, -1);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, 0);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, 0);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, -1, 1);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 0, 1);
-            aliveNeighbors += this.CurrentState(widthIndex, heightIndex, 1, 1);
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, -1));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(0, -1));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, -1));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, 0));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, 0));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, 1));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(0, 1));
+            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, 1));
 
             return aliveNeighbors;
         }
 
-        internal int CurrentState(int widthIndex, int heightIndex,
-            int leftOffset, int topOffset)
+        internal int CurrentState(AreaPosition currentPosition)
         {
-            int left = widthIndex + leftOffset;
-            int top = heightIndex + topOffset;
-            if (left < 0 || left >= this.Board.AreaSize.Width ||
-                top < 0 || top >= this.Board.AreaSize.Height)
+            if (currentPosition.X < 0 || currentPosition.X >= this.Board.AreaSize.Width ||
+                currentPosition.Y < 0 || currentPosition.Y >= this.Board.AreaSize.Height)
             {
                 return 0;
             }
 
-            return this.Board.Columns[left][top] ? 1 : 0;
+            return this.Board[currentPosition] ? 1 : 0;
         }
     }
 }

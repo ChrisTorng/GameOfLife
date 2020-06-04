@@ -217,8 +217,6 @@ namespace GameOfLife
 
         private void ImportComponent(Board component)
         {
-            int widthOffset;
-            int heightOffset;
             if (this.game.Board == null ||
                 this.game.Board.AreaSize.Width < component.AreaSize.Width ||
                 this.game.Board.AreaSize.Height < component.AreaSize.Height)
@@ -226,10 +224,10 @@ namespace GameOfLife
                 this.InitializeBoard(component.AreaSize);
             }
 
-            widthOffset = (this.game.Board.AreaSize.Width - component.AreaSize.Width) / 2;
-            heightOffset = (this.game.Board.AreaSize.Height - component.AreaSize.Height) / 2;
+            var position = new AreaPosition((this.game.Board.AreaSize.Width - component.AreaSize.Width) / 2,
+                (this.game.Board.AreaSize.Height - component.AreaSize.Height) / 2);
 
-            var board = this.game.ImportComponent(widthOffset, heightOffset, component);
+            var board = this.game.ImportComponent(position, component);
             this.UpdateBoard(board);
         }
 

@@ -52,5 +52,21 @@ namespace GameOfLife.Library
         {
             return !(left == right);
         }
+
+        public void ForEachPosition(Action<AreaPosition> action)
+        {
+            if (action is null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            for (int x = 0; x < this.Width; x++)
+            {
+                for (int y = 0; y < this.Height; y++)
+                {
+                    action(new AreaPosition(x, y));
+                }
+            }
+        }
     }
 }

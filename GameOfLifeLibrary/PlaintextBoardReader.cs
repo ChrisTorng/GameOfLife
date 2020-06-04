@@ -24,7 +24,7 @@ namespace GameOfLife.Library
                 return false;
             }
 
-            var areaSize = this.GetBoardSize();
+            this.GetBoardSize();
 
             return true;
         }
@@ -39,21 +39,14 @@ namespace GameOfLife.Library
 
         internal override void Parse()
         {
-            for (int heightIndex = 0; heightIndex < this.lines.Length; heightIndex++)
+            this.Board.ForEachPosition(position =>
             {
-                this.ParseLine(heightIndex, this.lines[heightIndex]);
-            }
-        }
-
-        private void ParseLine(int heightIndex, string line)
-        {
-            for (int widthIndex = 0; widthIndex < line.Length; widthIndex++)
-            {
-                if (line[widthIndex] == AliveChar)
+                if (this.lines[position.Y].Length > position.X &&
+                    this.lines[position.Y][position.X] == AliveChar)
                 {
-                    this.Board.Columns[widthIndex][heightIndex] = true;
+                    this.Board[position] = true;
                 }
-            }
+            });
         }
 
         private static bool IsCommentLine(string line)
