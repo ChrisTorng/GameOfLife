@@ -49,12 +49,12 @@ namespace GameOfLife
                 return;
             }
 
-            this.InitializeBoard(width, height);
+            this.InitializeBoard(new AreaSize(width, height));
         }
 
-        private void InitializeBoard(int width, int height)
+        private void InitializeBoard(AreaSize areaSize)
         {
-            this.game.CreateBoard(width, height);
+            this.game.CreateBoard(areaSize);
             this.DrawInitialBoard();
             this.Steps = 0;
         }
@@ -65,8 +65,8 @@ namespace GameOfLife
 
             double canvasWidth = this.BoardCanvas.RenderSize.Width;
             double canvasHeight = this.BoardCanvas.RenderSize.Height;
-            int width = this.game.Board.Width;
-            int height = this.game.Board.Height;
+            int width = this.game.Board.AreaSize.Width;
+            int height = this.game.Board.AreaSize.Height;
             double cellWidth = canvasWidth / width;
             double cellHeight = canvasHeight / height;
 
@@ -202,9 +202,9 @@ namespace GameOfLife
 
         private void UpdateBoard(Board board)
         {
-            for (int widthIndex = 0; widthIndex < board.Width; widthIndex++)
+            for (int widthIndex = 0; widthIndex < board.AreaSize.Width; widthIndex++)
             {
-                for (int heightIndex = 0; heightIndex < board.Height; heightIndex++)
+                for (int heightIndex = 0; heightIndex < board.AreaSize.Height; heightIndex++)
                 {
                     var state = board.Columns[widthIndex][heightIndex];
                     var cell = this.cells[widthIndex, heightIndex];
@@ -220,14 +220,14 @@ namespace GameOfLife
             int widthOffset;
             int heightOffset;
             if (this.game.Board == null ||
-                this.game.Board.Width < component.Width ||
-                this.game.Board.Height < component.Height)
+                this.game.Board.AreaSize.Width < component.AreaSize.Width ||
+                this.game.Board.AreaSize.Height < component.AreaSize.Height)
             {
-                this.InitializeBoard(component.Width, component.Height);
+                this.InitializeBoard(component.AreaSize);
             }
 
-            widthOffset = (this.game.Board.Width - component.Width) / 2;
-            heightOffset = (this.game.Board.Height - component.Height) / 2;
+            widthOffset = (this.game.Board.AreaSize.Width - component.AreaSize.Width) / 2;
+            heightOffset = (this.game.Board.AreaSize.Height - component.AreaSize.Height) / 2;
 
             var board = this.game.ImportComponent(widthOffset, heightOffset, component);
             this.UpdateBoard(board);

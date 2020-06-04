@@ -42,11 +42,11 @@ namespace GameOfLife.Library
 
         internal void SetBoardSize()
         {
-            (int width, int height) = this.GetBoardSize();
-            this.Board = new Board(width, height);
+            var areaSize = this.GetBoardSize();
+            this.Board = new Board(areaSize);
         }
 
-        internal abstract (int Width, int Height) GetBoardSize();
+        internal abstract AreaSize GetBoardSize();
 
         internal abstract void Parse();
     }

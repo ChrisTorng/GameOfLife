@@ -18,7 +18,7 @@ namespace GameOfLife.Library.Tests
 O.O")
                 .GetBoardByContent();
 
-            var expected = new Board(3, 2);
+            var expected = new Board(new AreaSize(3, 2));
             expected.Columns[1][0] = true;
             expected.Columns[0][1] = true;
             expected.Columns[2][1] = true;
@@ -37,7 +37,7 @@ OO.O..O
 ..OO")
                 .GetBoardByContent();
 
-            expected = new Board(7, 7);
+            expected = new Board(new AreaSize(7, 7));
             expected.Columns[2][0] = true;
             expected.Columns[3][0] = true;
             expected.Columns[1][1] = true;

@@ -49,10 +49,9 @@ namespace GameOfLife.Library.Tests
 !comment");
             reader.Validate();
 
-            (int width, int height) = reader.GetBoardSize();
+            var actual = reader.GetBoardSize();
 
-            Assert.AreEqual(2, width);
-            Assert.AreEqual(2, height);
+            Assert.AreEqual(new AreaSize(2, 2), actual);
         }
 
         [TestMethod]
@@ -61,46 +60,40 @@ namespace GameOfLife.Library.Tests
             var reader = GetPlaintextBoardReader(".");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(1, reader.Board.Width);
-            Assert.AreEqual(1, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(1, 1), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader("..");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(2, reader.Board.Width);
-            Assert.AreEqual(1, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(2, 1), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader(
 @".
 ");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(1, reader.Board.Width);
-            Assert.AreEqual(1, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(1, 1), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader(
 @"
 .");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(1, reader.Board.Width);
-            Assert.AreEqual(1, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(1, 1), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader(
 @"..
 .");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(2, reader.Board.Width);
-            Assert.AreEqual(2, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(2, 2), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader(
 @".
 ..");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(2, reader.Board.Width);
-            Assert.AreEqual(2, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(2, 2), reader.Board.AreaSize);
 
             reader = GetPlaintextBoardReader(
 @"!comment
@@ -109,8 +102,7 @@ namespace GameOfLife.Library.Tests
 !comment");
             reader.Validate();
             reader.SetBoardSize();
-            Assert.AreEqual(2, reader.Board.Width);
-            Assert.AreEqual(2, reader.Board.Height);
+            Assert.AreEqual(new AreaSize(2, 2), reader.Board.AreaSize);
         }
 
         [TestMethod]
@@ -121,7 +113,7 @@ namespace GameOfLife.Library.Tests
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(1, 1);
+            var expectedBoard = new Board(new AreaSize(1, 1));
             expectedBoard.Columns[0][0] = false;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
@@ -134,7 +126,7 @@ namespace GameOfLife.Library.Tests
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(1, 1);
+            var expectedBoard = new Board(new AreaSize(1, 1));
             expectedBoard.Columns[0][0] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
@@ -149,7 +141,7 @@ O");
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(1, 1);
+            var expectedBoard = new Board(new AreaSize(1, 1));
             expectedBoard.Columns[0][0] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
@@ -162,7 +154,7 @@ O");
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(3, 1);
+            var expectedBoard = new Board(new AreaSize(3, 1));
             expectedBoard.Columns[0][0] = true;
             expectedBoard.Columns[1][0] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
@@ -176,7 +168,7 @@ O");
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(3, 1);
+            var expectedBoard = new Board(new AreaSize(3, 1));
             expectedBoard.Columns[1][0] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
@@ -191,7 +183,7 @@ O");
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(1, 2);
+            var expectedBoard = new Board(new AreaSize(1, 2));
             expectedBoard.Columns[0][0] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);
         }
@@ -208,7 +200,7 @@ OO.
             reader.SetBoardSize();
             reader.Parse();
 
-            var expectedBoard = new Board(3, 4);
+            var expectedBoard = new Board(new AreaSize(3, 4));
             expectedBoard.Columns[0][2] = true;
             expectedBoard.Columns[1][2] = true;
             Assert.That.BoardsEqual(expectedBoard, reader.Board);

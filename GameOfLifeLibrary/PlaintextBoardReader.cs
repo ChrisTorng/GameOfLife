@@ -24,21 +24,17 @@ namespace GameOfLife.Library
                 return false;
             }
 
-            (int width, int height) = this.GetBoardSize();
-            if (width <= 0 || height <= 0)
-            {
-                return false;
-            }
+            var areaSize = this.GetBoardSize();
 
             return true;
         }
 
-        internal override (int Width, int Height) GetBoardSize()
+        internal override AreaSize GetBoardSize()
         {
             int width = this.lines.Max(line => line.Length);
             int height = this.lines.Length;
 
-            return (width, height);
+            return new AreaSize(width, height);
         }
 
         internal override void Parse()

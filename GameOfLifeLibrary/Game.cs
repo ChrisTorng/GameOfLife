@@ -15,16 +15,16 @@ namespace GameOfLife.Library
         {
         }
 
-        public Board CreateBoard(int width, int height)
+        public Board CreateBoard(AreaSize areaSize)
         {
-            this.Board = new Board(width, height);
+            this.Board = new Board(areaSize);
             return this.Board;
         }
 
         public Board Reset()
         {
             this.Steps = 0;
-            return this.CreateBoard(this.Board.Width, this.Board.Height);
+            return this.CreateBoard(this.Board.AreaSize);
         }
 
         public Board ImportComponent(int widthOffset, int heightOffset, Board component)
@@ -35,13 +35,13 @@ namespace GameOfLife.Library
             }
 
             for (int widthIndex = 0;
-                widthIndex < component.Width &&
-                widthIndex + widthOffset < this.Board.Width;
+                widthIndex < component.AreaSize.Width &&
+                widthIndex + widthOffset < this.Board.AreaSize.Width;
                 widthIndex++)
             {
                 for (int heightIndex = 0;
-                    heightIndex < component.Height &&
-                    heightIndex + heightOffset < this.Board.Height;
+                    heightIndex < component.AreaSize.Height &&
+                    heightIndex + heightOffset < this.Board.AreaSize.Height;
                     heightIndex++)
                 {
                     if (component.Columns[widthIndex][heightIndex])
@@ -56,7 +56,7 @@ namespace GameOfLife.Library
 
         public Board NextBoard()
         {
-            Board nextBoard = new Board(this.Board.Width, this.Board.Height);
+            Board nextBoard = new Board(this.Board.AreaSize);
             this.ApplyBoardRules(nextBoard);
             return nextBoard;
         }
@@ -69,9 +69,9 @@ namespace GameOfLife.Library
 
         private void ApplyBoardRules(Board nextBoard)
         {
-            for (int widthIndex = 0; widthIndex < this.Board.Width; widthIndex++)
+            for (int widthIndex = 0; widthIndex < this.Board.AreaSize.Width; widthIndex++)
             {
-                for (int heightIndex = 0; heightIndex < this.Board.Height; heightIndex++)
+                for (int heightIndex = 0; heightIndex < this.Board.AreaSize.Height; heightIndex++)
                 {
                     this.ApplyCellRules(widthIndex, heightIndex, nextBoard);
                 }
@@ -118,8 +118,8 @@ namespace GameOfLife.Library
         {
             int left = widthIndex + leftOffset;
             int top = heightIndex + topOffset;
-            if (left < 0 || left >= this.Board.Width ||
-                top < 0 || top >= this.Board.Height)
+            if (left < 0 || left >= this.Board.AreaSize.Width ||
+                top < 0 || top >= this.Board.AreaSize.Height)
             {
                 return 0;
             }

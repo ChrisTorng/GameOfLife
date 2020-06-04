@@ -1,35 +1,22 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 namespace GameOfLife.Library
 {
     public class Board
     {
-        public Board(int width, int height)
+        public Board(AreaSize areaSize)
         {
-            if (width <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(width));
-            }
-
-            if (height <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(height));
-            }
-
-            this.Width = width;
-            this.Height = height;
-            this.Columns = new BitArray[width];
+            this.Columns = new BitArray[areaSize.Width];
 
             for (int index = 0; index < this.Columns.Length; index++)
             {
-                this.Columns[index] = new BitArray(height);
+                this.Columns[index] = new BitArray(areaSize.Height);
             }
+
+            this.AreaSize = areaSize;
         }
 
-        public int Width { get; }
-
-        public int Height { get; }
+        public AreaSize AreaSize { get; }
 
 #pragma warning disable CA1819 // Properties should not return arrays
         public BitArray[] Columns { get; }

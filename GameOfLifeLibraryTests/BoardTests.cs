@@ -10,19 +10,18 @@ namespace GameOfLife.Library.Tests
         public void Constructor_Invalid_Test()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                new Board(0, 1));
+                new Board(new AreaSize(0, 1)));
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                new Board(1, 0));
+                new Board(new AreaSize(1, 0)));
         }
 
         [TestMethod]
         public void Constructor_Test()
         {
-            var board = new Board(2, 3);
+            var board = new Board(new AreaSize(2, 3));
 
-            Assert.AreEqual(2, board.Width);
-            Assert.AreEqual(3, board.Height);
+            Assert.AreEqual(new AreaSize(2, 3), board.AreaSize);
             Assert.AreEqual(2, board.Columns.Length);
             Assert.AreEqual(3, board.Columns[0].Length);
             Assert.AreEqual(3, board.Columns[1].Length);
@@ -31,7 +30,7 @@ namespace GameOfLife.Library.Tests
         [TestMethod]
         public void Flip_Test()
         {
-            var board = new Board(2, 3);
+            var board = new Board(new AreaSize(2, 3));
 
             Assert.AreEqual(true, board.Flip(0, 0));
             Assert.AreEqual(false, board.Flip(0, 0));
