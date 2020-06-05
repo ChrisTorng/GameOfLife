@@ -34,26 +34,27 @@ namespace GameOfLife.Library.Tests
             var game = new Game();
             game.CreateBoard(new AreaSize(1, 1));
 
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(0, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(0, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, 1)));
-            Assert.AreEqual(0, game.GetAliveNeighbors(new AreaPosition(0, 0)));
+            var position = new AreaPosition(0, 0);
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 1)));
+            Assert.AreEqual(0, game.GetAliveNeighbors(position));
 
             game.Board.Columns[0][0] = true;
 
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(0, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(-1, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(0, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(0, 0) + new AreaPosition(1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 1)));
             Assert.AreEqual(0, game.GetAliveNeighbors(new AreaPosition(0, 0)));
         }
 
@@ -63,27 +64,28 @@ namespace GameOfLife.Library.Tests
             var game = new Game();
             game.CreateBoard(new AreaSize(3, 3));
 
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 1)));
-            Assert.AreEqual(0, game.GetAliveNeighbors(new AreaPosition(0, 0)));
+            var position = new AreaPosition(1, 1);
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 1)));
+            Assert.AreEqual(0, game.GetAliveNeighbors(position));
 
             game.Board.Columns[1][1] = true;
 
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, -1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 0)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, 1)));
-            Assert.AreEqual(0, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 1)));
-            Assert.AreEqual(0, game.GetAliveNeighbors(new AreaPosition(1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, -1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 0)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(-1, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(0, 1)));
+            Assert.AreEqual(0, game.CurrentState(position.GetOffsetPosition(1, 1)));
+            Assert.AreEqual(0, game.GetAliveNeighbors(position));
 
             game.Board.Columns[0][0] = true;
             game.Board.Columns[0][1] = true;
@@ -94,15 +96,15 @@ namespace GameOfLife.Library.Tests
             game.Board.Columns[2][1] = true;
             game.Board.Columns[2][2] = true;
 
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, -1)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, -1)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, -1)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 0)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 0)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(-1, 1)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(0, 1)));
-            Assert.AreEqual(1, game.CurrentState(new AreaPosition(1, 1) + new AreaPosition(1, 1)));
-            Assert.AreEqual(8, game.GetAliveNeighbors(new AreaPosition(1, 1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(-1, -1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(0, -1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(1, -1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(-1, 0)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(1, 0)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(-1, 1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(0, 1)));
+            Assert.AreEqual(1, game.CurrentState(position.GetOffsetPosition(1, 1)));
+            Assert.AreEqual(8, game.GetAliveNeighbors(position));
         }
 
         [TestMethod]

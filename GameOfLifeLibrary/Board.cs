@@ -34,6 +34,30 @@ namespace GameOfLife.Library
         public void ForEachPosition(Action<AreaPosition> action)
             => this.AreaSize.ForEachPosition(action);
 
+        public void ForEachPositionInComponent(Board component,
+            AreaPosition componentOffset,
+            Action<AreaPosition, AreaPosition> action)
+        {
+            if (component is null)
+            {
+                throw new ArgumentNullException(nameof(component));
+            }
+
+            if (action is null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            component.ForEachPosition(componentPosition =>
+            {
+                var boardPosition = componentOffset + componentPosition;
+                if (this.AreaSize.InThisArea(boardPosition))
+                {
+                    action(boardPosition, componentPosition);
+                }
+            });
+        }
+
         public bool Flip(int x, int y)
         {
             return this.Columns[x][y] = !this.Columns[x][y];

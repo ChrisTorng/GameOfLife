@@ -14,6 +14,11 @@ namespace GameOfLife.Library
 
         public int Y { get; }
 
+        public AreaPosition GetOffsetPosition(int x, int y)
+        {
+            return this + new AreaPosition(x, y);
+        }
+
         public override bool Equals(object obj)
         {
             return obj is AreaPosition position && this.Equals(position);

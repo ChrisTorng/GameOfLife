@@ -27,31 +27,22 @@ namespace GameOfLife.Library
             return this.CreateBoard(this.Board.AreaSize);
         }
 
-        public Board ImportComponent(AreaPosition areaPosition, Board component)
+        public Board ImportComponent(AreaPosition componentOffset, Board component)
         {
             if (component is null)
             {
                 throw new ArgumentNullException(nameof(component));
             }
 
-            int widthOffset = areaPosition.X;
-            int heightOffset = areaPosition.Y;
-            for (int widthIndex = 0;
-                widthIndex < component.AreaSize.Width &&
-                widthIndex + widthOffset < this.Board.AreaSize.Width;
-                widthIndex++)
-            {
-                for (int heightIndex = 0;
-                    heightIndex < component.AreaSize.Height &&
-                    heightIndex + heightOffset < this.Board.AreaSize.Height;
-                    heightIndex++)
+            this.Board.ForEachPositionInComponent(component,
+                componentOffset,
+                (boardPosition, componentPosition) =>
                 {
-                    if (component.Columns[widthIndex][heightIndex])
+                    if (component[componentPosition])
                     {
-                        this.Board.Columns[widthIndex + widthOffset][heightIndex + heightOffset] = true;
+                        this.Board[boardPosition] = true;
                     }
-                }
-            }
+                });
 
             return this.Board;
         }
@@ -98,14 +89,14 @@ namespace GameOfLife.Library
         {
             int aliveNeighbors = 0;
 
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, -1));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(0, -1));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, -1));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, 0));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, 0));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(-1, 1));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(0, 1));
-            aliveNeighbors += this.CurrentState(currentPosition + new AreaPosition(1, 1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(-1, -1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(0, -1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(1, -1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(-1, 0));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(1, 0));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(-1, 1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(0, 1));
+            aliveNeighbors += this.CurrentState(currentPosition.GetOffsetPosition(1, 1));
 
             return aliveNeighbors;
         }
