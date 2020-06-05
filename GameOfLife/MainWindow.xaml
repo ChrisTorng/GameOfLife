@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="Width:" />
-            <TextBox x:Name="WidthTextBox" Width="100" Text="30" />
+            <TextBox x:Name="WidthTextBox" Width="100" Text="40" />
             <Label Content="Height:" Margin="10,0,0,0" />
             <TextBox x:Name="HeightTextBox" Width="100" Text="20" />
             <Button x:Name="OkButton" Content="OK" Click="OkButton_Click" Margin="10,0,0,0" />
@@ -34,9 +34,9 @@
             <Label Content="Speed:"/>
             <TextBlock x:Name="SpeedTextBlock" Width="50"
                        Text="{Binding Value, ElementName=SpeedSlider}"/>
-            <Slider x:Name="SpeedSlider" Minimum="0" Maximum="1000" Width="100"
+            <Slider x:Name="SpeedSlider" Minimum="0" Maximum="1000" Width="200"
                     Value="1000"
-                    TickFrequency="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight"
+                    TickFrequency="20" IsSnapToTickEnabled="True" TickPlacement="BottomRight"
                     ValueChanged="SpeedSlider_ValueChanged" />
         </StackPanel>
     </Grid>

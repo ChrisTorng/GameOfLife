@@ -70,43 +70,43 @@ namespace GameOfLife
             double cellWidth = canvasWidth / width;
             double cellHeight = canvasHeight / height;
 
-            this.DrawGrid(canvasWidth, canvasHeight, width, height, cellWidth, cellHeight);
+            ////this.DrawGrid(canvasWidth, canvasHeight, width, height, cellWidth, cellHeight);
             this.DrawCells(width, height, cellWidth, cellHeight);
         }
 
-        private void DrawGrid(double canvasWidth, double canvasHeight, int width, int height, double cellWidth, double cellHeight)
-        {
-            for (int widthIndex = 1; widthIndex < width; widthIndex++)
-            {
-                this.DrawLine(cellWidth * widthIndex,
-                    0,
-                    cellWidth * widthIndex,
-                    canvasHeight);
-            }
+        ////private void DrawGrid(double canvasWidth, double canvasHeight, int width, int height, double cellWidth, double cellHeight)
+        ////{
+        ////    for (int widthIndex = 1; widthIndex < width; widthIndex++)
+        ////    {
+        ////        this.DrawLine(cellWidth * widthIndex,
+        ////            0,
+        ////            cellWidth * widthIndex,
+        ////            canvasHeight);
+        ////    }
 
-            for (int heightIndex = 1; heightIndex < height; heightIndex++)
-            {
-                this.DrawLine(0,
-                    cellHeight * heightIndex,
-                    canvasWidth,
-                    cellHeight * heightIndex);
-            }
-        }
+        ////    for (int heightIndex = 1; heightIndex < height; heightIndex++)
+        ////    {
+        ////        this.DrawLine(0,
+        ////            cellHeight * heightIndex,
+        ////            canvasWidth,
+        ////            cellHeight * heightIndex);
+        ////    }
+        ////}
 
-        private void DrawLine(double x1, double y1, double x2, double y2)
-        {
-            var line = new Line()
-            {
-                X1 = x1,
-                Y1 = y1,
-                X2 = x2,
-                Y2 = y2,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-            };
+        ////private void DrawLine(double x1, double y1, double x2, double y2)
+        ////{
+        ////    var line = new Line()
+        ////    {
+        ////        X1 = x1,
+        ////        Y1 = y1,
+        ////        X2 = x2,
+        ////        Y2 = y2,
+        ////        Stroke = Brushes.Black,
+        ////        StrokeThickness = 1,
+        ////    };
 
-            this.BoardCanvas.Children.Add(line);
-        }
+        ////    this.BoardCanvas.Children.Add(line);
+        ////}
 
         private void DrawCells(int width, int height, double cellWidth, double cellHeight)
         {
@@ -134,8 +134,10 @@ namespace GameOfLife
         {
             var cell = new Rectangle()
             {
-                Width = width - 2 < 1 ? 1 : width - 2,
-                Height = height - 2 < 1 ? 1 : height - 2,
+                ////Width = width - 2 < 1 ? 1 : width - 2,
+                ////Height = height - 2 < 1 ? 1 : height - 2,
+                Width = width - 1 < 0 ? 0 : width - 1,
+                Height = height - 1 < 0 ? 0 : height - 1,
                 Fill = Brushes.YellowGreen,
                 Stroke = Brushes.Black,
                 StrokeThickness = 0,
