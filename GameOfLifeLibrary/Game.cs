@@ -103,8 +103,7 @@ namespace GameOfLife.Library
 
         internal int CurrentState(AreaPosition currentPosition)
         {
-            if (currentPosition.X < 0 || currentPosition.X >= this.Board.AreaSize.Width ||
-                currentPosition.Y < 0 || currentPosition.Y >= this.Board.AreaSize.Height)
+            if (!this.Board.AreaSize.InThisArea(currentPosition))
             {
                 return 0;
             }
