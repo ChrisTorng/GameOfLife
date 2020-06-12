@@ -24,7 +24,7 @@ namespace GameOfLife.Library
 
         public int Height { get; }
 
-        public AreaPosition GetOffsetPosition(int x, int y)
+        public static AreaPosition GetOffsetPosition(int x, int y)
         {
             return new AreaPosition(x, y);
         }
